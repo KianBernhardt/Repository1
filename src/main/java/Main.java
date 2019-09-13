@@ -10,6 +10,8 @@ public class Main {
         openDatabase("Database.db");
         //write the code to get data from, write to the database here
 
+        Users.listUsers();
+
         closeDatabase();
     }
 
