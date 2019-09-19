@@ -20,11 +20,12 @@ public class Users {
         }
     }
 
-    public static void insertUser (int User_ID, String Password){
+    public static void insertUser (int User_ID, String Username, String Password){
         try{
-            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Users(User_ID, Password) VALUES (?, ?)");
+            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Users(User_ID, Username, Password) VALUES (?, ?, ?)");
             ps.setInt(1, User_ID);
-            ps.setString(2, Password);
+            ps.setString(2, Username);
+            ps.setString(3, Password);
             ps.executeUpdate();
             System.out.println("Record has been added to the 'Users' table");
 
@@ -34,11 +35,12 @@ public class Users {
         }
     }
 
-    public static void updateUser (String Username, String Password){
+    public static void updateUser (int User_ID, String Username, String Password){
         try{
-            PreparedStatement ps = Main.db.prepareStatement("UPDATE Users SET Username = ?, Password = ?");
-            ps.setString(1, Username);
-            ps.setString(2, Password);
+            PreparedStatement ps = Main.db.prepareStatement("UPDATE Users SET User_ID = ?, Username = ?, Password = ?");
+            ps.setInt(1, User_ID);
+            ps.setString(2, Username);
+            ps.setString(3, Password);
             ps.executeUpdate();
             System.out.println("The 'Users' table has been updated");
 
@@ -52,6 +54,7 @@ public class Users {
         try{
             PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Users WHERE User_ID = ?");
             ps.setInt(1, User_ID);
+            ps.executeUpdate();
 
         }catch (Exception exception){
             System.out.println(exception.getMessage());
