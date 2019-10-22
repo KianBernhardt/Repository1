@@ -27,7 +27,7 @@ public class Users {
                 JSONObject item = new JSONObject();
                 item.put("User_ID", results.getInt(1));
                 item.put("Username", results.getString(2));
-                item.put("Password", results.getInt(3));
+                item.put("Password", results.getString(3));
                 list.add(item);
             }
             return list.toString();
@@ -48,6 +48,8 @@ public class Users {
                 throw new Exception("One or more form data parameters are missing in the HTTP request.");
             }
             System.out.println("User/new User_ID=" + User_ID);
+            System.out.println("User/new Username=" + Username);
+            System.out.println("User/new Password=" + Password);
 
             PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Users (User_ID, Username, Password) VALUES (?, ?, ?)");
             ps.setInt(1, User_ID);
