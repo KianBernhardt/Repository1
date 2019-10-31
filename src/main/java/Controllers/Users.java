@@ -67,7 +67,7 @@ public class Users {
 
     public static void updateUser (int User_ID, String Username, String Password){
         try{
-            PreparedStatement ps = Main.db.prepareStatement("UPDATE Controllers.Users SET Username = ?, Password = ? WHERE User_ID = ?");
+            PreparedStatement ps = Main.db.prepareStatement("UPDATE Users SET Username = ?, Password = ? WHERE User_ID = ?");
             ps.setString(1, Username);
             ps.setString(2, Password);
             ps.setInt(3, User_ID);
@@ -82,7 +82,7 @@ public class Users {
 
     public static void deleteUser(int User_ID) throws SQLException {
         try{
-            PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Controllers.Users WHERE User_ID = ?");
+            PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Users WHERE User_ID = ?");
             ps.setInt(1, User_ID);
             ps.executeUpdate();
 
