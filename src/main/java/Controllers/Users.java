@@ -64,19 +64,31 @@ public class Users {
             return "{\"error\": \"Unable to create new item, please see server console for more info.\"}";
         }
     }
-
-    public static void updateUser (int User_ID, String Username, String Password){
+    @POST
+    @Path("update")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String updateUser(
+        @FormDataParam("Username") String Username, @FormDataParam("Password") String Password, @FormDataParam("User_ID") Integer User_ID){
         try{
+            if ((Username == null) || (Password == null) || (User_ID == null)) {
+                throw new Exception("One or more form data parameters are missing in the HTTP request.");
+            }
+            System.out.println("User/update User_ID=" + User_ID);
+            System.out.println("User/update Username=" + Username);
+            System.out.println("User/update Password=" + Password);
+
             PreparedStatement ps = Main.db.prepareStatement("UPDATE Users SET Username = ?, Password = ? WHERE User_ID = ?");
             ps.setString(1, Username);
             ps.setString(2, Password);
             ps.setInt(3, User_ID);
             ps.executeUpdate();
-            System.out.println("The 'Controllers.Users' table has been updated");
+            System.out.println("Record has been updated.");
+            return "{\"Status\": \"OK\"}";
 
-        } catch (SQLException exception) {
-            System.out.println(exception.getMessage());
-            System.out.println("Error: Something has gone wrong.");
+        } catch (Exception exception) {
+            System.out.println("Database erros: " + exception.getMessage());
+            return "{\"error\": \"Unable to update user, please see server console for more info.\"}";
         }
     }
 
